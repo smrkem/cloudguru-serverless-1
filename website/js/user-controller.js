@@ -91,5 +91,15 @@ var userController = {
             that.uiElements.profileButton.hide();
             that.uiElements.loginButton.show();
         });
+
+        this.uiElements.profileButton.click(function (e) {
+            var url = that.data.config.apiBaseUrl + '/user-profile';
+
+            $.get(url, function (data, status) {
+                // save user profile data in the modal
+                $('#user-profile-raw-json').text(JSON.stringify(data, null, 2));
+                $('#user-profile-modal').modal();
+            })
+        });
     }
 };
