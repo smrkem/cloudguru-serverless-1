@@ -27,3 +27,15 @@ and then set up the actual API in API Gateway. It's first resource is 'user-prof
 
 The above API has the endpoint  
 https://544hwejua6.execute-api.us-east-1.amazonaws.com/dev  
+
+With all that in place, I updated the website to add some functionality to the user-profile button. Here's the commit:
+https://github.com/smrkem/cloudguru-serverless-1/commit/ab94fe6c89579df67610a1a3531853dfd018644e  
+
+The API is working and returning the user info fetched from Auth0 (in the user-profile lambda), but there's currently no authentication. We want to lock this functionality off to only authenticated users. We can create another lambda that compares the JWT sent in the request header with the client secret to authenticate it.
+
+I add the lambda:  
+- cloudguru-serverless-custom-authoriser  
+
+And in API Gateway I add it to the Authorizers section and set up the GET to `user-profile` to use it.
+
+(NOTE: In order for the custom authoriser to work I needed to change the algorithm in auth0 from 'RS256' to 'HS256'.)
