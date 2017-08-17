@@ -8,7 +8,8 @@ var userController = {
         logoutButton: null,
         profileButton: null,
         profileNameLabel: null,
-        profileImage: null
+        profileImage: null,
+        uploadButton: null
     },
     init: function (config) {
         this.uiElements.loginButton = $('#auth0-login');
@@ -16,6 +17,7 @@ var userController = {
         this.uiElements.profileButton = $('#user-profile');
         this.uiElements.profileNameLabel = $('#profilename');
         this.uiElements.profileImage = $('#profilepicture');
+        this.uiElements.uploadButton = $('#upload-video-button');
 
         this.data.config = config;
         this.data.auth0Lock = new Auth0Lock(config.auth0.clientId, config.auth0.domain);
@@ -53,6 +55,7 @@ var userController = {
         if (showAuthenticationElements) {
             this.uiElements.profileNameLabel.text(profile.nickname);
             this.uiElements.profileImage.attr('src', profile.picture);
+            this.uiElements.uploadButton.css('display', 'inline-block');
         }
 
         this.uiElements.loginButton.toggle(!showAuthenticationElements);
@@ -76,9 +79,7 @@ var userController = {
                 } else {
                     // Save the JWT token.
                     localStorage.setItem('userToken', token);
-
                     that.configureAuthenticatedRequests();
-
                     that.showUserAuthenticationDetails(profile);
                 }
             });
@@ -87,9 +88,11 @@ var userController = {
         this.uiElements.logoutButton.click(function (e) {
             localStorage.removeItem('userToken');
 
+            that.uiElements.loginButton.show();
+
             that.uiElements.logoutButton.hide();
             that.uiElements.profileButton.hide();
-            that.uiElements.loginButton.show();
+            that.uiElements.uploadButton.hide();
         });
 
         this.uiElements.profileButton.click(function (e) {
