@@ -52,3 +52,18 @@ The lambda function is then created setting the access keys, amongst other thing
 and a new resource `s3-policy-document` is added to the API with a GET method (which uses the same custom authoriser as before).  
 
 It's also necessary to add a CORS configuration to the input bucket in S3 to allow for uploading from any domain.
+
+Another big website update follows - here's the commit:  
+https://github.com/smrkem/cloudguru-serverless-1/commit/8d4e85d4694262cf9075754e4e9f836e3f722b62
+
+Loading up the website - everything is working. I can upload a video from the site, which ends up in the s3 input bucket, and the Elastic Transcoder role does its thing and eventually produces versions of the uploaded video in the output bucket.
+
+woot!
+
+There is an error however - subsequent requests to the API are getting 403'd - probably something to do with caching the token or on the custom authorizer. The TTL is set to 300s, but the generatePolicy on the custom-authoriser lambda is written to only allow permission for the requested resource. If, within the 300s a second request is made for a different resource, the API doesn't allow it.
+
+The fix was to change the customAuthorizer code, hardcoding in the resource arns to allow invoking all the resources in the API, for now that's 2:
+- GET .../user-profile
+- GET .../s3-policy-document
+
+everything is working now, including subsequent requests to the API.
