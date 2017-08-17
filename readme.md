@@ -38,4 +38,17 @@ I add the lambda:
 
 And in API Gateway I add it to the Authorizers section and set up the GET to `user-profile` to use it.
 
-(NOTE: In order for the custom authoriser to work I needed to change the algorithm in auth0 from 'RS256' to 'HS256'.)
+(NOTE: In order for the custom authoriser to work I needed to change the algorithm in auth0 from 'RS256' to 'HS256'.)  
+
+### Uploading a Video  
+In order to upload videos directly to s3 in the javascript, we'll generaate a 'pre-signed url' for the input bucket and filename of the uploaded video. This will be retrieved after the user selects the file to upload, from a lambda function via API Gateway.  
+
+To create the pre-signed URL, a user with upload permissions on the input bucket is needed with Access Key creds.  
+- cloudguru-serverless-upload-s3  
+
+The lambda function is then created setting the access keys, amongst other things, as environment variables.  
+- cloudguru-serverless-get-upload-policy  
+
+and a new resource `s3-policy-document` is added to the API with a GET method (which uses the same custom authoriser as before).  
+
+It's also necessary to add a CORS configuration to the input bucket in S3 to allow for uploading from any domain.
