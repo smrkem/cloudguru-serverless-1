@@ -79,7 +79,9 @@ var userController = {
                 } else {
                     // Save the JWT token.
                     localStorage.setItem('userToken', token);
+
                     that.configureAuthenticatedRequests();
+
                     that.showUserAuthenticationDetails(profile);
                 }
             });
@@ -88,10 +90,9 @@ var userController = {
         this.uiElements.logoutButton.click(function (e) {
             localStorage.removeItem('userToken');
 
-            that.uiElements.loginButton.show();
-
             that.uiElements.logoutButton.hide();
             that.uiElements.profileButton.hide();
+            that.uiElements.loginButton.show();
             that.uiElements.uploadButton.hide();
         });
 
