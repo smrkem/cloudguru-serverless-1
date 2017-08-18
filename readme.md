@@ -67,3 +67,18 @@ The fix was to change the customAuthorizer code, hardcoding in the resource arns
 - GET .../s3-policy-document
 
 everything is working now, including subsequent requests to the API.
+
+### Adding Firebase to the App
+Now to hook the front end up to a database. I created a firebase project called `cloudguru-serverless`
+
+
+
+```
+var configConstants = {
+    auth0: {
+        domain: 'cloudguru-serverless-course.auth0.com',
+        clientId: 'AtAj6xvWl9GGrRwGAz3RgNzaw49EU9kN'
+    },
+    apiBaseUrl: 'https://544hwejua6.execute-api.us-east-1.amazonaws.com/dev'
+};
+```
