@@ -79,4 +79,17 @@ and the site is now loading the sample videos which load and play fine. Firebase
 
 In Firebase, I create a new Service Account for the app to use when updating the db, and download the access key json. Adding this to .gitignore so it stays private. I make the updates to the transcode-video lambda function, including the firebase access key json, and update my lambda function with the new package.  
 
-(I also decided to gitignore all my LambdaDeployment.zip lambda package files - since this now also contains the secret key. They can be easily recreeated with the `npm run predeploy` command.)
+(I also decided to gitignore all my LambdaDeployment.zip lambda package files - since this now also contains the secret key. They can be easily recreated with the `npm run predeploy` command.)
+
+### Finishing the App
+The app is nearly done. I can upload a video from the site, which gets to the S3 bucket and kicks off the transcoding process, informing Firebase that a new video has been uploaded and is being transcoded.  
+
+The final piece is another lambda function, triggered when the transcoded videos are placed into the output bucket, that informs Firebase that the transcoding is done and providing the source url.  
+- cloudguru-serverless-push-url-to-firebase
+
+With that in place, the uploads are working and getting transcoded. The app and the course is done.
+
+### Review
+This course provides a great introduction to serverless architecture. Mike (the instructor) is knowledgeable, friendly and engaging and does a good job with presenting the material. The project built throughout does a really good job of demonstrating serverless patterns and principles, and works great with a little bit of debugging using the code provided.  
+
+The course's major downside for me was that all of the code was simply provided and not really explained at all. So, for example, while the course demonstrates that you can generate a pre-singed url which can be used by a broser to upload a file directly to S3 - it does absolutely nothing to teach students specifically how to accomplish that task. It took time to go over all the code, googling when necessary, in order to really understand what was happening.
