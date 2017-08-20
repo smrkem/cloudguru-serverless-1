@@ -70,15 +70,11 @@ everything is working now, including subsequent requests to the API.
 
 ### Adding Firebase to the App
 Now to hook the front end up to a database. I created a firebase project called `cloudguru-serverless`
+and imported the sample data provided.
 
+Here's the final website update commit:
+https://github.com/smrkem/cloudguru-serverless-1/commit/827f2d599dd88005c554d1454cd3be1b3e4f1e42  
 
+and the site is now loading the sample videos which load and play fine. Firebase connection established! When I change the 'transcoding' value from 'false' to 'true' in firebase, the change is pushed and automatically changes on the website instantly.
 
-```
-var configConstants = {
-    auth0: {
-        domain: 'cloudguru-serverless-course.auth0.com',
-        clientId: 'AtAj6xvWl9GGrRwGAz3RgNzaw49EU9kN'
-    },
-    apiBaseUrl: 'https://544hwejua6.execute-api.us-east-1.amazonaws.com/dev'
-};
-```
+In Firebase, I create a new Service Account for the app to use when updating the db, and download the access key json. Adding this to .gitignore so it stays private. I make the updates to the transcode-video lambda function, including the firebase access key json, and update my lambda function with the new package.
