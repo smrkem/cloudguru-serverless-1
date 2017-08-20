@@ -77,4 +77,6 @@ https://github.com/smrkem/cloudguru-serverless-1/commit/827f2d599dd88005c554d145
 
 and the site is now loading the sample videos which load and play fine. Firebase connection established! When I change the 'transcoding' value from 'false' to 'true' in firebase, the change is pushed and automatically changes on the website instantly.
 
-In Firebase, I create a new Service Account for the app to use when updating the db, and download the access key json. Adding this to .gitignore so it stays private. I make the updates to the transcode-video lambda function, including the firebase access key json, and update my lambda function with the new package.
+In Firebase, I create a new Service Account for the app to use when updating the db, and download the access key json. Adding this to .gitignore so it stays private. I make the updates to the transcode-video lambda function, including the firebase access key json, and update my lambda function with the new package.  
+
+(I also decided to gitignore all my LambdaDeployment.zip lambda package files - since this now also contains the secret key. They can be easily recreeated with the `npm run predeploy` command.)
